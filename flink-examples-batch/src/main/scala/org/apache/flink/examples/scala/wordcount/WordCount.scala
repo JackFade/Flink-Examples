@@ -20,6 +20,7 @@ package org.apache.flink.examples.scala.wordcount
 
 import org.apache.flink.api.java.utils.ParameterTool
 import org.apache.flink.api.scala._
+import org.apache.flink.core.fs.FileSystem.WriteMode
 import org.apache.flink.examples.java.wordcount.util.WordCountData
 
 /**
@@ -69,7 +70,7 @@ object WordCount {
       .sum(1)
 
     if (params.has("output")) {
-      counts.writeAsCsv(params.get("output"), "\n", " ")
+      counts.writeAsCsv(params.get("output"), "\n", " ",WriteMode.OVERWRITE)
       env.execute("Scala WordCount Example")
     } else {
       println("Printing result to stdout. Use --output to specify output path.")
